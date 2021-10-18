@@ -1,0 +1,111 @@
+{
+  "employees": [
+    {
+      "empName": "Ali",
+      "empPos": " Chief Executive Officer (CEO)",
+      "workAddress": "Condo A",
+      "empID": "#ID1111",
+      "id": "e1"
+    },
+    {
+      "empName": "Ah Kau",
+      "empPos": "Chief Operating Officer (COO)",
+      "workAddress": "Condo B",
+      "empID": "#ID2222",
+      "id": "e2"
+    },
+    {
+      "empName": "Muthu",
+      "empPos": "Chief Financial Officer (CFO)",
+      "workAddress": "Condo C",
+      "empID": "#ID3333",
+      "id": "e3"
+    },
+    {
+      "empName": "John Cena",
+      "empPos": "Secretary",
+      "workAddress": "Condo D",
+      "empID": "#ID4444",
+      "id": "e4"
+    },
+    {
+      "empName": "Jason",
+      "empPos": "IT Consultant",
+      "workAddress": "Bikini Bottom",
+      "empID": "testing",
+      "id": "wu3O9q-"
+    },
+    {
+      "empName": "Jay Chou",
+      "empPos": "Entertainer",
+      "workAddress": "Condo A",
+      "empID": "TESTING2",
+      "id": "YvDj_uk"
+    },
+    {
+      "empName": "Suzy",
+      "empPos": "Artist",
+      "workAddress": "Bikini Bottom",
+      "empID": "TESTING3",
+      "id": "fBCGSjc"
+    }
+  ],
+  "addresses": [
+    {
+      "addName": "Condo A",
+      "addUnit": "D-C3-20",
+      "addStreet": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+      "addPostC": "12345",
+      "addCountry": "Selangor",
+      "id": "a1"
+    },
+    {
+      "addName": "Condo B",
+      "addUnit": "5-A3-10",
+      "addStreet": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+      "addPostC": "67891",
+      "addCountry": "Perak",
+      "id": "a2"
+    },
+    {
+      "addName": "Condo C",
+      "addUnit": "6-6-6",
+      "addStreet": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+      "addPostC": "10112",
+      "addCountry": "Sarawak",
+      "id": "a3"
+    },
+    {
+      "addName": "Condo D",
+      "addUnit": "K3-2-5",
+      "addStreet": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+      "addPostC": "13145",
+      "addCountry": "Perlis",
+      "id": "a4"
+    },
+    {
+      "addName": "Bikini Bottom",
+      "addUnit": "No 26",
+      "addStreet": "Jalan Ohaiyo 3, Taman Saranghaeyo",
+      "addPostC": "520",
+      "addCountry": "Test",
+      "id": "yoA6eA0"
+    },
+    {
+      "addName": "The Way",
+      "addUnit": "?-?-?",
+      "addStreet": "Do you know the way",
+      "addPostC": "00000",
+      "addCountry": "Test2",
+      "id": "OwCrktk"
+    },
+    {
+      "addName": "Hollywood",
+      "addUnit": "Hollywood Blvd",
+      "addStreet": "3 street, final hallway",
+      "addPostC": "6834 ",
+      "addCountry": "Los Angeles",
+      "id": "4gaZz3J"
+    }
+  ]
+}
