@@ -1,15 +1,14 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Main from "./Main";
-import Login from "./Login";
-import Register from "./Register";
+import Main from "./Main/Main";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
 import { useEffect, useState } from "react";
-import auth from "./firebase";
-import NotFound from "./NotFound";
+import auth from "./authentication/firebase";
+import NotFound from "./NotFound/NotFound";
 
 function App() {
   const [user, setUser] = useState(null);
 
-  // Check user auth, invalid then require login
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       const user = {
@@ -27,7 +26,6 @@ function App() {
 
   return (
     <div className="app">
-      {/* React-router */}
       <Router>
         <Switch>
           <Route exact path="/">
