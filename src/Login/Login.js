@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { Link } from "react-router-dom";
-import auth from "firebase";
+import auth from "../authentication/firebase";
 import { useHistory } from "react-router";
 
 export default function Login() {
