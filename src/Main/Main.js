@@ -20,8 +20,10 @@ import ADDCard from "../components/ADDCard";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { styled } from "@mui/material/styles";
-import auth from "firebase"
+import auth from "../authentication/firebase";
 import { makeStyles } from "@mui/styles";
+import { useTheme, useThemeUpdate } from "../Theme/ThemeContext";
+import Switch from "@mui/material/Switch";
 
 // For dialog
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -171,12 +173,37 @@ export default function Main() {
     noBorder: {
       border: "0px",
       boxShadow: "none",
-      borderWidth :"0px"
+      borderWidth: "0px",
     },
   }));
 
+  // For dark theme
+  const darkTheme = useTheme();
+  const toggleTheme = useThemeUpdate();
+  const themeStyles = {
+    backgroundColor: darkTheme ? "#e5e5e5" : "#333",
+    minHeight: "100vh",
+  };
+  const useIconStyles = makeStyles({
+    select: {
+      "&:after": {
+        borderBottomColor: "darkred",
+      },
+      "& .MuiSvgIcon-root": {
+        color: darkTheme ? "#757575" : "#FFFFFF",
+      },
+    },
+  });
+  const classes = useIconStyles();
+
+  // For Switch
+  const [checked, setChecked] = React.useState(false);
+  const handleSwitchChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
   return (
-    <div className="main">
+    <div className="main" style={themeStyles}>
       {/* Nav bar */}
       <Box
         sx={{
@@ -257,6 +284,13 @@ export default function Main() {
               Employee Management App
             </Typography>
           </Link>
+          <Switch
+            checked={checked}
+            color="default"
+            onChange={handleSwitchChange}
+            inputProps={{ "aria-label": "controlled" }}
+            onClick={toggleTheme}
+          />
         </Box>
         <Button onClick={() => auth.signOut()}>
           <Typography
@@ -304,7 +338,7 @@ export default function Main() {
             fontSize: "34px",
             lineHeight: "123.5%",
             letterSpacing: "0.25px",
-            color: "#000000",
+            color: darkTheme ? "#000000" : "#FFFFFF",
           }}
         >
           Employees
@@ -313,7 +347,7 @@ export default function Main() {
           startIcon={
             <PersonAddOutlinedIcon
               sx={{
-                color: "#50D49280",
+                color: darkTheme ? "#50D49280" : "#D2FFF1",
               }}
             />
           }
@@ -332,7 +366,7 @@ export default function Main() {
               lineHeight: "24px",
               letterSpacing: "0.4px",
               textTransform: "uppercase",
-              color: "#50D492",
+              color: darkTheme ? "#50D492" : "#83FFC5",
             }}
           >
             ADD NEW EMPLOYEE
@@ -344,7 +378,10 @@ export default function Main() {
           onClose={handleEMPClose}
           aria-labelledby="customized-dialog-title"
           PaperProps={{
-            style: { borderRadius: 20 },
+            style: {
+              borderRadius: 20,
+              background: darkTheme ? "#FFFFFF" : "#242526",
+            },
             sx: { width: "450px", height: "369px" },
           }}
           open={openEMP}
@@ -365,7 +402,7 @@ export default function Main() {
                 display: "flex",
                 alignItems: "center",
                 letterSpacing: "0.15px",
-                color: "rgba(0, 0, 0, 0.87)",
+                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
               }}
             >
               Add New Employee
@@ -377,6 +414,9 @@ export default function Main() {
                 fullWidth
                 required
                 error={empNameErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -387,6 +427,7 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "73px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -394,6 +435,9 @@ export default function Main() {
                 label="Current Position"
                 required
                 error={empPosErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -404,6 +448,7 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "145px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -411,6 +456,9 @@ export default function Main() {
                 label="Employee ID"
                 required
                 error={empIDErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -421,6 +469,7 @@ export default function Main() {
                   height: "56px",
                   left: "264px",
                   top: "145px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <Box
@@ -434,10 +483,14 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "217px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               >
                 <FormControl fullWidth error={workAddressErr}>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel
+                    id="demo-simple-select-label"
+                    style={{ color: darkTheme ? "#707070" : "#a7ada8" }}
+                  >
                     Work Address
                   </InputLabel>
                   <Select
@@ -494,13 +547,13 @@ export default function Main() {
                   height: "36px",
                   left: "35px",
                   top: "303px",
-                  background: "#FFFFFF",
-                  color: "#808080",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
+                  color: darkTheme ? "#808080" : "#dcdee2",
                   boxShadow:
                     "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
                   borderRadius: "10px",
                   "&:hover": {
-                    background: "#E6E6E6",
+                    background: darkTheme ? "#E6E6E6" : "#4e4f50",
                   },
                 }}
               >
@@ -517,14 +570,25 @@ export default function Main() {
             paddingTop: "94px",
           }}
         >
-          <FormControl error={workAddressErr} sx={{ width: "203px" }}>
+          <FormControl
+            error={workAddressErr}
+            sx={{
+              width: "203px",
+              background: darkTheme ? "#e5e5e5" : "#242526",
+            }}
+          >
             <InputLabel
               id="demo-simple-select-label"
-              sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
+              }}
             >
               <FilterAltIcon
                 sx={{
-                  color: "#0000001F",
+                  color: darkTheme ? "#0000001F" : "#757575",
                 }}
               />
               Filter Address
@@ -533,6 +597,10 @@ export default function Main() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={filterChange}
+              style={{
+                color: darkTheme ? "#434343" : "#FFFFFF",
+              }}
+              className={classes.select}
               label="Work Address"
               onChange={handleFilterChange}
               classes={useStyles.noBorder}
@@ -590,7 +658,7 @@ export default function Main() {
             fontSize: "34px",
             lineHeight: "123.5%",
             letterSpacing: "0.25px",
-            color: "#000000",
+            color: darkTheme ? "#000000" : "#FFFFFF",
           }}
         >
           Address
@@ -599,7 +667,7 @@ export default function Main() {
           startIcon={
             <ApartmentOutlinedIcon
               sx={{
-                color: "#50D49280",
+                color: darkTheme ? "#50D49280" : "#D2FFF1",
               }}
             />
           }
@@ -617,7 +685,7 @@ export default function Main() {
               lineHeight: "24px",
               letterSpacing: "0.4px",
               textTransform: "uppercase",
-              color: "#50D492",
+              color: darkTheme ? "#50D492" : "#83FFC5",
             }}
           >
             ADD NEW ADDRESS
@@ -629,7 +697,10 @@ export default function Main() {
           onClose={handleADDClose}
           aria-labelledby="customized-dialog-title"
           PaperProps={{
-            style: { borderRadius: 20 },
+            style: {
+              borderRadius: 20,
+              background: darkTheme ? "#FFFFFF" : "#242526",
+            },
             sx: { width: "450px", height: "441px" },
           }}
           open={openADD}
@@ -650,7 +721,7 @@ export default function Main() {
                 display: "flex",
                 alignItems: "center",
                 letterSpacing: "0.15px",
-                color: "rgba(0, 0, 0, 0.87)",
+                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
               }}
             >
               Add New Address
@@ -662,6 +733,9 @@ export default function Main() {
                 fullWidth
                 required
                 error={addNameErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -672,6 +746,7 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "73px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -680,6 +755,9 @@ export default function Main() {
                 fullWidth
                 required
                 error={addUnitErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -690,6 +768,7 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "145px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -698,6 +777,9 @@ export default function Main() {
                 fullWidth
                 required
                 error={addStreetErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -708,6 +790,7 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "217px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -715,6 +798,9 @@ export default function Main() {
                 label="Postcode"
                 required
                 error={addPostCErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -725,6 +811,7 @@ export default function Main() {
                   height: "56px",
                   left: "25px",
                   top: "289px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -733,6 +820,9 @@ export default function Main() {
                 fullWidth
                 required
                 error={addCountryErr}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -743,6 +833,7 @@ export default function Main() {
                   height: "56px",
                   left: "155px",
                   top: "289px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <Button
