@@ -19,6 +19,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, styled } from "@mui/system";
+import { useTheme } from "../Theme/ThemeContext";
+import { makeStyles } from "@mui/styles";
 
 // For dialog
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -85,6 +87,20 @@ export default function EmpCard({ employee }) {
     });
   };
 
+  // For dark theme
+  const darkTheme = useTheme();
+  const useStyles = makeStyles({
+    select: {
+      "&:after": {
+        borderBottomColor: "darkred",
+      },
+      "& .MuiSvgIcon-root": {
+        color: darkTheme ? "#757575" : "#FFFFFF",
+      },
+    },
+  });
+  const classes = useStyles();
+
   return (
     <div className="emp-card">
       {/* Card of employees info */}
@@ -92,7 +108,7 @@ export default function EmpCard({ employee }) {
         sx={{
           width: "436px",
           height: "156px",
-          background: "#FFFFFF",
+          background: darkTheme ? "#FFFFFF" : "#242526",
           boxShadow:
             "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
           borderRadius: "20px",
@@ -100,7 +116,10 @@ export default function EmpCard({ employee }) {
       >
         <CardHeader
           action={
-            <IconButton onClick={handleEMPOpen}>
+            <IconButton
+              style={{ color: darkTheme ? "#767676" : "#A9A9A9" }}
+              onClick={handleEMPOpen}
+            >
               <ModeEditOutlineOutlinedIcon />
             </IconButton>
           }
@@ -117,7 +136,7 @@ export default function EmpCard({ employee }) {
                 alignItems: "center",
                 letterSpacing: "1px",
                 textTransform: "uppercase",
-                color: "#9E9E9E",
+                color: darkTheme ? "#9E9E9E" : "#D1D1D1",
               }}
             >
               {employee.empID}
@@ -134,7 +153,7 @@ export default function EmpCard({ employee }) {
                   fontSize: "20px",
                   lineHeight: "160%",
                   letterSpacing: "0.15px",
-                  color: "#389466",
+                  color: darkTheme ? "#389466" : "#85E1B3",
                 }}
               >
                 {employee.empName}
@@ -148,7 +167,7 @@ export default function EmpCard({ employee }) {
                   fontSize: "14px",
                   lineHeight: "143%",
                   letterSpacing: "0.15px",
-                  color: "rgba(0, 0, 0, 0.6)",
+                  color: darkTheme ? "rgba(0, 0, 0, 0.6)" : "#FFFFFF",
                 }}
               >
                 {employee.empPos}
@@ -162,7 +181,10 @@ export default function EmpCard({ employee }) {
           onClose={handleEMPClose}
           aria-labelledby="customized-dialog-title"
           PaperProps={{
-            style: { borderRadius: 20 },
+            style: {
+              borderRadius: 20,
+              background: darkTheme ? "#FFFFFF" : "#242526",
+            },
             sx: { width: "450px", height: "369px" },
           }}
           open={openEMP}
@@ -183,7 +205,7 @@ export default function EmpCard({ employee }) {
                 display: "flex",
                 alignItems: "center",
                 letterSpacing: "0.15px",
-                color: "rgba(0, 0, 0, 0.87)",
+                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
               }}
             >
               Edit Employee
@@ -194,6 +216,12 @@ export default function EmpCard({ employee }) {
               fullWidth
               required
               defaultValue={employee.empName}
+              InputLabelProps={{
+                style: { color: darkTheme ? "#707070" : "#a7ada8" },
+              }}
+              InputProps={{
+                style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -204,6 +232,7 @@ export default function EmpCard({ employee }) {
                 height: "56px",
                 left: "25px",
                 top: "73px",
+                background: darkTheme ? "#FFFFFF" : "#3a3b3c",
               }}
             />
             <TextField
@@ -211,6 +240,12 @@ export default function EmpCard({ employee }) {
               label="Current Position"
               required
               defaultValue={employee.empPos}
+              InputLabelProps={{
+                style: { color: darkTheme ? "#707070" : "#a7ada8" },
+              }}
+              InputProps={{
+                style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -221,6 +256,7 @@ export default function EmpCard({ employee }) {
                 height: "56px",
                 left: "25px",
                 top: "145px",
+                background: darkTheme ? "#FFFFFF" : "#3a3b3c",
               }}
             />
             <TextField
@@ -228,6 +264,12 @@ export default function EmpCard({ employee }) {
               label="Employee ID"
               required
               defaultValue={employee.empID}
+              InputLabelProps={{
+                style: { color: darkTheme ? "#707070" : "#a7ada8" },
+              }}
+              InputProps={{
+                style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+              }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -238,6 +280,7 @@ export default function EmpCard({ employee }) {
                 height: "56px",
                 left: "264px",
                 top: "145px",
+                background: darkTheme ? "#FFFFFF" : "#3a3b3c",
               }}
             />
             <Box
@@ -251,16 +294,26 @@ export default function EmpCard({ employee }) {
                 height: "56px",
                 left: "25px",
                 top: "217px",
+                background: darkTheme ? "#FFFFFF" : "#3a3b3c",
               }}
             >
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel
+                  id="demo-simple-select-label"
+                  style={{
+                    color: darkTheme ? "#707070" : "#a7ada8",
+                  }}
+                >
                   Work Address
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   defaultValue={employee.workAddress}
+                  style={{
+                    color: darkTheme ? "#434343" : "#FFFFFF",
+                  }}
+                  className={classes.select}
                   label="Work Address"
                   onChange={handleChange}
                 >
@@ -328,12 +381,25 @@ export default function EmpCard({ employee }) {
 
         {/* Employees delete confirmation dialog */}
         <BootstrapDialog
+          PaperProps={{
+            style: {
+              background: darkTheme ? "#242526" : "#FFFFFF",
+            },
+          }}
           onClose={handleConfirmationClose}
           open={openConfirmation}
         >
-          <DialogTitle id="alert-dialog-title">{"Delete Employee"}</DialogTitle>
+          <DialogTitle
+            id="alert-dialog-title"
+            sx={{ color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF" }}
+          >
+            {"Delete Employee"}
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText
+              id="alert-dialog-description"
+              sx={{ color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF" }}
+            >
               Are you sure you want to delete?
             </DialogContentText>
           </DialogContent>
@@ -349,7 +415,7 @@ export default function EmpCard({ employee }) {
 
         <CardContent
           sx={{
-            background: "#F5F5F5",
+            background: darkTheme ? "#F5F5F5" : "#3a3b3c",
             borderRadius: "20px 20px 0px 0px",
             fontFamily: "Open Sans",
             fontStyle: "normal",
@@ -357,7 +423,7 @@ export default function EmpCard({ employee }) {
             fontSize: "16px",
             lineHeight: "150%",
             letterSpacing: "0.15px",
-            color: "#757575",
+            color: darkTheme ? "#757575" : "#a5a397",
             paddingTop: "12px",
             paddingLeft: "38px",
           }}

@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import { useTheme } from "../Theme/ThemeContext";
 
 // For dialog
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -73,6 +74,8 @@ export default function AddCard({ address }) {
     });
   };
 
+  const darkTheme = useTheme();
+
   return (
     <div className="add-card">
       {/* Card of addresses info */}
@@ -80,7 +83,7 @@ export default function AddCard({ address }) {
         sx={{
           width: "436px",
           height: "156px",
-          background: "#FFFFFF",
+          background: darkTheme ? "#FFFFFF" : "#242526",
           boxShadow:
             "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
           borderRadius: "20px",
@@ -88,7 +91,10 @@ export default function AddCard({ address }) {
       >
         <CardHeader
           action={
-            <IconButton onClick={handleADDOpen}>
+            <IconButton
+              style={{ color: darkTheme ? "#767676" : "#A9A9A9" }}
+              onClick={handleADDOpen}
+            >
               <ModeEditOutlineOutlinedIcon />
             </IconButton>
           }
@@ -102,7 +108,7 @@ export default function AddCard({ address }) {
                 fontSize: "20px",
                 lineHeight: "160%",
                 letterSpacing: "0.15px",
-                color: "#389466",
+                color: darkTheme ? "#389466" : "#85E1B3",
               }}
             >
               {address.addName}
@@ -115,7 +121,10 @@ export default function AddCard({ address }) {
           onClose={handleADDClose}
           aria-labelledby="customized-dialog-title"
           PaperProps={{
-            style: { borderRadius: 20 },
+            style: {
+              borderRadius: 20,
+              background: darkTheme ? "#FFFFFF" : "#242526",
+            },
             sx: { width: "450px", height: "441px" },
           }}
           open={openADD}
@@ -136,7 +145,7 @@ export default function AddCard({ address }) {
                 display: "flex",
                 alignItems: "center",
                 letterSpacing: "0.15px",
-                color: "rgba(0, 0, 0, 0.87)",
+                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
               }}
             >
               Edit Address
@@ -148,6 +157,12 @@ export default function AddCard({ address }) {
                 fullWidth
                 required
                 defaultValue={address.addName}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
+                InputProps={{
+                  style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -158,6 +173,7 @@ export default function AddCard({ address }) {
                   height: "56px",
                   left: "25px",
                   top: "73px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -166,6 +182,12 @@ export default function AddCard({ address }) {
                 fullWidth
                 required
                 defaultValue={address.addUnit}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
+                InputProps={{
+                  style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -176,6 +198,7 @@ export default function AddCard({ address }) {
                   height: "56px",
                   left: "25px",
                   top: "145px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -184,6 +207,12 @@ export default function AddCard({ address }) {
                 fullWidth
                 required
                 defaultValue={address.addStreet}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
+                InputProps={{
+                  style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -194,6 +223,7 @@ export default function AddCard({ address }) {
                   height: "56px",
                   left: "25px",
                   top: "217px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -201,6 +231,12 @@ export default function AddCard({ address }) {
                 label="Postcode"
                 required
                 defaultValue={address.addPostC}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
+                InputProps={{
+                  style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -211,6 +247,7 @@ export default function AddCard({ address }) {
                   height: "56px",
                   left: "25px",
                   top: "289px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <TextField
@@ -219,6 +256,12 @@ export default function AddCard({ address }) {
                 fullWidth
                 required
                 defaultValue={address.addCountry}
+                InputLabelProps={{
+                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
+                }}
+                InputProps={{
+                  style: { color: darkTheme ? "#434343" : "#FFFFFF" },
+                }}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -229,6 +272,7 @@ export default function AddCard({ address }) {
                   height: "56px",
                   left: "155px",
                   top: "289px",
+                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
                 }}
               />
               <Button
@@ -287,12 +331,25 @@ export default function AddCard({ address }) {
 
         {/* Addresses delete confirmation dialog */}
         <BootstrapDialog
+          PaperProps={{
+            style: {
+              background: darkTheme ? "#FFFFFF" : "#242526",
+            },
+          }}
           onClose={handleConfirmationClose}
           open={openConfirmation}
         >
-          <DialogTitle id="alert-dialog-title">{"Delete Address"}</DialogTitle>
+          <DialogTitle
+            id="alert-dialog-title"
+            sx={{ color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF" }}
+          >
+            {"Delete Address"}
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText
+              id="alert-dialog-description"
+              sx={{ color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF" }}
+            >
               Are you sure you want to delete?
             </DialogContentText>
           </DialogContent>
@@ -319,13 +376,28 @@ export default function AddCard({ address }) {
                 color: "rgba(0, 0, 0, 0.87)",
               }}
             >
-              <Typography style={{ paddingLeft: "20px" }}>
+              <Typography
+                style={{
+                  paddingLeft: "20px",
+                  color: darkTheme ? "#000000" : "#FFFFFF",
+                }}
+              >
                 {address.addUnit}
               </Typography>
-              <Typography style={{ paddingLeft: "20px" }}>
+              <Typography
+                style={{
+                  paddingLeft: "20px",
+                  color: darkTheme ? "#000000" : "#FFFFFF",
+                }}
+              >
                 {address.addStreet}
               </Typography>
-              <Typography style={{ paddingLeft: "20px" }}>
+              <Typography
+                style={{
+                  paddingLeft: "20px",
+                  color: darkTheme ? "#000000" : "#FFFFFF",
+                }}
+              >
                 {address.addPostC} {address.addCountry}
               </Typography>
             </div>
