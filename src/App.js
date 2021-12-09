@@ -5,6 +5,7 @@ import Register from "./Register/Register";
 import { useEffect, useState } from "react";
 import auth from "./authentication/firebase";
 import NotFound from "./NotFound/NotFound";
+import { ThemeProvider } from "./Theme/ThemeContext";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,7 +30,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            {user ? <Main /> : <Login />}
+            <ThemeProvider>{user ? <Main /> : <Login />}</ThemeProvider>
           </Route>
           <Route path="/login">
             <Login />
