@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Main from "./Main/Main";
-import Login from "./Login/Login";
-import Register from "./Register/Register";
+import Main from "./pages/Main";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { useEffect, useState } from "react";
 import auth from "./authentication/firebase";
-import NotFound from "./NotFound/NotFound";
+import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./Theme/ThemeContext";
+import History from "./pages/History";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,22 +29,29 @@ function App() {
 
   return (
     <div className="app">
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <ThemeProvider>{user ? <Main /> : <Login />}</ThemeProvider>
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </Router>
+      <ThemeProvider>
+        <Router>
+          {user ? <NavBar /> : null}
+
+          <Switch>
+            <Route exact path="/">
+              {user ? <Main /> : <Login />}
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/history">
+              <History />
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </Router>
+      </ThemeProvider>
     </div>
   );
 }
