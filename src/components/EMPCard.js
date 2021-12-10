@@ -383,7 +383,7 @@ export default function EmpCard({ employee }) {
         <BootstrapDialog
           PaperProps={{
             style: {
-              background: darkTheme ? "#242526" : "#FFFFFF",
+              background: darkTheme ?  "#FFFFFF" : "#242526",
             },
           }}
           onClose={handleConfirmationClose}
