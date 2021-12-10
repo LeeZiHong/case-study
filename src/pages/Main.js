@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import {
   Button,
   FormControl,
@@ -11,7 +10,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
@@ -20,10 +18,8 @@ import ADDCard from "../components/ADDCard";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { styled } from "@mui/material/styles";
-import auth from "../authentication/firebase";
 import { makeStyles } from "@mui/styles";
-import { useTheme, useThemeUpdate } from "../Theme/ThemeContext";
-import Switch from "@mui/material/Switch";
+import { useTheme } from "../Theme/ThemeContext";
 
 // For dialog
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -179,7 +175,6 @@ export default function Main() {
 
   // For dark theme
   const darkTheme = useTheme();
-  const toggleTheme = useThemeUpdate();
   const themeStyles = {
     backgroundColor: darkTheme ? "#e5e5e5" : "#333",
     minHeight: "100vh",
@@ -196,133 +191,8 @@ export default function Main() {
   });
   const classes = useIconStyles();
 
-  // For Switch
-  const [checked, setChecked] = React.useState(false);
-  const handleSwitchChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
   return (
     <div className="main" style={themeStyles}>
-      {/* Nav bar */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: "8px 12px",
-          position: "absolute",
-          width: "1340px",
-          height: "64px",
-          left: "50px",
-          top: "30px",
-          background: "#50D492",
-          boxShadow:
-            "0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12)",
-          borderRadius: "20px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            padding: "0px",
-            position: "static",
-            width: "1244px",
-            height: "48px",
-            left: "12px",
-            top: "8px",
-            flex: "none",
-            order: "0",
-            flexGrow: "1",
-            margin: "0px 0px",
-          }}
-        >
-          <Link
-            to="/"
-            style={{
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <PeopleAltOutlinedIcon
-              fontSize="medium"
-              sx={{
-                display: "absolute",
-                color: "#FFFFFF",
-                paddingLeft: "27px",
-                paddingTop: "23px",
-                paddingBottom: "23px",
-              }}
-            />
-            <Typography
-              color="#FFFFFF"
-              sx={{
-                position: "static",
-                left: "0%",
-                right: "0%",
-                top: "0%",
-                bottom: "0%",
-                fontFamily: "Exo",
-                fontStyle: "normal",
-                fontWeight: "500",
-                fontSize: "20px",
-                lineHeight: "160%",
-                letterSpacing: "0.15px",
-                flex: "none",
-                order: 0,
-                flexGrow: 0,
-                margin: "0px 0px",
-                paddingLeft: "31px",
-                paddingTop: "16px",
-                paddingBottom: "16px",
-              }}
-            >
-              Employee Management App
-            </Typography>
-          </Link>
-          <Switch
-            checked={checked}
-            color="default"
-            onChange={handleSwitchChange}
-            inputProps={{ "aria-label": "controlled" }}
-            onClick={toggleTheme}
-          />
-        </Box>
-        <Button onClick={() => auth.signOut()}>
-          <Typography
-            sx={{
-              position: "static",
-              left: "11.11%",
-              right: "11.11%",
-              top: "16.67%",
-              bottom: "16.67%",
-              fontFamily: "Exo",
-              fontStyle: "normal",
-              fontWeight: "500",
-              fontSize: "14px",
-              lineHeight: "24px",
-              letterspacing: "0.15px",
-              texttransform: "uppercase",
-              color: "#FFFFFF",
-              flex: "none",
-              order: 0,
-              flexGrow: 0,
-              margin: "8px 0px",
-              paddingRight: "20px",
-              "&:hover": {
-                color: "#E6E6E6",
-              },
-            }}
-          >
-            LOGOUT
-          </Typography>
-        </Button>
-      </Box>
-
       {/* Employees text */}
       <Box>
         <Typography
@@ -637,7 +507,7 @@ export default function Main() {
                   lg={4}
                   padding={1}
                 >
-                  <EmpCard employee={employee} />
+                  <EmpCard employee={employee} /> 
                 </Grid>
               ))}
           </Grid>
