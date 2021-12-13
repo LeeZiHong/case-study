@@ -199,7 +199,7 @@ export default function History() {
                   fontSize: "14px",
                   lineHeight: "143%",
                   letterSpacing: "0.15px",
-                  color: "#000000",
+                  color: darkTheme ? "#000000" : "#FFFFFF",
                 }}
               >
                 {historyDatas.hisID}
@@ -217,7 +217,7 @@ export default function History() {
                   fontSize: "14px",
                   lineHeight: "143%",
                   letterSpacing: "0.15px",
-                  color: "#000000",
+                  color: darkTheme ? "#000000" : "#FFFFFF",
                 }}
               >
                 {historyDatas.hisName}
@@ -235,7 +235,7 @@ export default function History() {
                   fontSize: "14px",
                   lineHeight: "143%",
                   letterSpacing: "0.15px",
-                  color: "#000000",
+                  color: darkTheme ? "#000000" : "#FFFFFF",
                 }}
               >
                 {historyDatas.hisDate}
