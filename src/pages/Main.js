@@ -507,7 +507,7 @@ export default function Main() {
                   lg={4}
                   padding={1}
                 >
-                  <EmpCard employee={employee} /> 
+                  <EmpCard employee={employee} />
                 </Grid>
               ))}
           </Grid>

@@ -1,8 +1,9 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "../Theme/ThemeContext";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useHistory } from "react-router-dom";
+import { useCHistory } from "../Reducer/ReducerContext";
 
 export default function History() {
   // For dark theme
@@ -13,6 +14,15 @@ export default function History() {
   };
 
   const history = useHistory();
+
+  const items = useCHistory();
+
+  const [historyData, setHistoryData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8000/historyDel")
+      .then((res) => res.json())
+      .then((data) => setHistoryData(data));
+  }, [historyData]);
 
   return (
     <div style={themeStyles}>
@@ -154,24 +164,85 @@ export default function History() {
           />
         </Box>
 
-        <Typography
-          sx={{
-            position: "absolute",
-            width: "122px",
-            height: "20px",
-            left: "659px",
-            top: "256px",
-            fontFamily: "Open Sans",
-            fontStyle: "normal",
-            fontWeight: "normal",
-            fontSize: "14px",
-            lineHeight: "143%",
-            letterSpacing: "0.15px",
-            color: darkTheme ? "#000000" : "#FFFFFF",
-          }}
-        >
-          No records found
-        </Typography>
+        {items.length === 0 ? (
+          <Typography
+            sx={{
+              position: "absolute",
+              width: "122px",
+              height: "20px",
+              left: "659px",
+              top: "256px",
+              fontFamily: "Open Sans",
+              fontStyle: "normal",
+              fontWeight: "normal",
+              fontSize: "14px",
+              lineHeight: "143%",
+              letterSpacing: "0.15px",
+              color: darkTheme ? "#000000" : "#FFFFFF",
+            }}
+          >
+            No records found
+          </Typography>
+        ) : (
+          historyData.map((historyDatas) => (
+            <Box key={historyDatas.id} sx={{ width: "auto", height: "50px" }}>
+              <Typography
+                sx={{
+                  position: "absolute",
+                  width: "57px",
+                  height: "20px",
+                  left: "60px",
+                  marginTop: "256px",
+                  fontFamily: "Open Sans",
+                  fontStyle: "normal",
+                  fontWeight: "normal",
+                  fontSize: "14px",
+                  lineHeight: "143%",
+                  letterSpacing: "0.15px",
+                  color: "#000000",
+                }}
+              >
+                {historyDatas.hisID}
+              </Typography>
+              <Typography
+                sx={{
+                  position: "absolute",
+                  width: "109px",
+                  height: "20px",
+                  left: "211px",
+                  marginTop: "256px",
+                  fontFamily: "Open Sans",
+                  fontStyle: "normal",
+                  fontWeight: "normal",
+                  fontSize: "14px",
+                  lineHeight: "143%",
+                  letterSpacing: "0.15px",
+                  color: "#000000",
+                }}
+              >
+                {historyDatas.hisName}
+              </Typography>
+              <Typography
+                sx={{
+                  position: "absolute",
+                  width: "77px",
+                  height: "20px",
+                  left: "1304px",
+                  marginTop: "256px",
+                  fontFamily: "Open Sans",
+                  fontStyle: "normal",
+                  fontWeight: "normal",
+                  fontSize: "14px",
+                  lineHeight: "143%",
+                  letterSpacing: "0.15px",
+                  color: "#000000",
+                }}
+              >
+                {historyDatas.hisDate}
+              </Typography>
+            </Box>
+          ))
+        )}
       </Box>
     </div>
   );
