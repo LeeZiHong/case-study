@@ -5,6 +5,7 @@ import auth from "../authentication/firebase";
 import { Link } from "react-router-dom";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { Box, Button, Typography } from "@mui/material";
+import { useCHistory } from "../Reducer/ReducerContext";
 
 export default function NavBar() {
   const toggleTheme = useThemeUpdate();
@@ -14,6 +15,8 @@ export default function NavBar() {
   const handleSwitchChange = (event) => {
     setChecked(event.target.checked);
   };
+
+  const items = useCHistory();
 
   return (
     <div>
@@ -131,7 +134,7 @@ export default function NavBar() {
                 },
               }}
             >
-              HISTORY
+              HISTORY ({items.length})
             </Typography>
           </Link>
         </Button>

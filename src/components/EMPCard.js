@@ -21,6 +21,7 @@ import {
 import { Box, styled } from "@mui/system";
 import { useTheme } from "../Theme/ThemeContext";
 import { makeStyles } from "@mui/styles";
+import { useDisptachHistory } from "../Reducer/ReducerContext";
 
 // For dialog
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -79,11 +80,45 @@ export default function EmpCard({ employee }) {
     });
   };
   const handleEMPDelete = (e) => {
+    fetch(`http://localhost:8000/employees/${employee.id}`, {
+      method: "DELETE",
+    });
+  };
+
+  var myCurrentDate = new Date();
+  var date = myCurrentDate.getDate() + '/' + (myCurrentDate.getMonth()+1) + '/' + myCurrentDate.getFullYear();
+
+  const dispatch = useDisptachHistory();
+  const [hisID, setHisID] = useState(employee.empID);
+  const [hisName, setHisName] = useState(employee.empName);
+  const [hisDate, setHisDate] = useState(date);
+  
+
+  const handleHistory = (e) => {
     e.preventDefault();
     setConfirmation(false);
     setOpenEMP(false);
-    fetch(`http://localhost:8000/employees/${employee.id}`, {
-      method: "DELETE",
+    fetch(`http://localhost:8000/employees/${employee.id}`)
+      .then((res) => res.json())
+      .then(
+        (data) =>
+        setHisID( empID) &
+          setHisName(empName) &
+          handleAddHistory(data) &
+          setHisDate(date) &
+          dispatch({ type: "ADD", data }) &
+          handleEMPDelete(data)
+      );
+  };
+  const handleAddHistory = (e) => {
+    fetch("http://localhost:8000/historyDel", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        hisName,
+        hisDate,
+        hisID,
+      }),
     });
   };
 
@@ -383,7 +418,7 @@ export default function EmpCard({ employee }) {
         <BootstrapDialog
           PaperProps={{
             style: {
-              background: darkTheme ?  "#FFFFFF" : "#242526",
+              background: darkTheme ? "#FFFFFF" : "#242526",
             },
           }}
           onClose={handleConfirmationClose}
@@ -404,7 +439,7 @@ export default function EmpCard({ employee }) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleEMPDelete} color="primary" autoFocus>
+            <Button onClick={handleHistory} color="primary" autoFocus>
               Yes
             </Button>
             <Button onClick={handleConfirmationClose} color="primary">

@@ -66,9 +66,6 @@ export default function AddCard({ address }) {
     });
   };
   const handleADDDelete = (e) => {
-    e.preventDefault();
-    setConfirmation(false);
-    setOpenADD(false);
     fetch(`http://localhost:8000/addresses/${address.id}`, {
       method: "DELETE",
     });
