@@ -107,5 +107,19 @@
       "addCountry": "Los Angeles",
       "id": "4gaZz3J"
     }
+  ],
+  "historyDel": [
+    {
+      "hisName": "g",
+      "hisDate": "13/12/2021",
+      "hisID": "g",
+      "id": 1
+    },
+    {
+      "hisName": "t",
+      "hisDate": "13/12/2021",
+      "hisID": "t",
+      "id": 2
+    }
   ]
 }
