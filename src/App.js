@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import auth from "./authentication/firebase";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./Theme/ThemeContext";
@@ -27,6 +27,15 @@ function App() {
     return unsubscribe;
   }, []);
 
+  // Handle toast
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <div className="app">
       <ThemeProvider>
@@ -38,10 +47,10 @@ function App() {
               {user ? <Main /> : <Login />}
             </Route>
             <Route path="/login">
-              <Login />
+              <Login open={open} handleClose={handleClose} />
             </Route>
             <Route path="/register">
-              <Register />
+              <Register setOpen={setOpen} />
             </Route>
             <Route path="/history">
               <History />
