@@ -20,6 +20,9 @@ import DialogContent from "@mui/material/DialogContent";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "../Theme/ThemeContext";
+import { Link } from "react-router-dom";
+import { useCHistory } from "../Reducer/ReducerContext";
+import MenuIcon from '@mui/icons-material/Menu';
 
 // For dialog
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -191,6 +194,14 @@ export default function Main() {
   });
   const classes = useIconStyles();
 
+  const items = useCHistory();
+  const [historyData, setHistoryData] = useState(items);
+  useEffect(() => {
+    fetch("http://localhost:8000/historyDel")
+      .then((res) => res.json())
+      .then((data) => setHistoryData(data));
+  }, [historyData]);
+
   return (
     <div className="main" style={themeStyles}>
       {/* Employees text */}
@@ -223,7 +234,10 @@ export default function Main() {
           }
           sx={{
             top: "147px",
-            left: "243px",
+            left: "253px",
+            border: "1px solid rgba(80, 212, 146, 0.5)",
+            boxSizing: "border-box",
+            borderRadius: "10px",
           }}
           onClick={handleEMPOpen}
         >
@@ -241,6 +255,53 @@ export default function Main() {
           >
             ADD NEW EMPLOYEE
           </Typography>
+        </Button>
+        <Button
+         startIcon={
+          <MenuIcon
+            sx={{
+              color: darkTheme ? "#757575" : "#a5a397",
+            }}
+          />
+        }
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0px",
+            left: "469px",
+            top: "117px",
+            borderRadius: "10px",
+          }}
+        >
+          <Link to="/history" style={{ textDecoration: "none" }}>
+            <Typography
+              sx={{
+                position: "static",
+                left: "13.48%",
+                right: "0%",
+                top: "0%",
+                bottom: "0%",
+                fontFamily: "Exo",
+                fontStyle: "normal",
+                fontWeight: "500",
+                fontSize: "14px",
+                lineHeight: "24px",
+                letterSpacing: "0.4px",
+                textTransform: "uppercase",
+                color: darkTheme ? "rgba(0, 0, 0, 0.54)" : "#a5a397",
+                flex: "none",
+                order: "1",
+                flexGrow: "0",
+                margin: "0px 8px",
+                "&:hover": {
+                  color: darkTheme ? "#5D5D5D" : "#C3C3C3",
+                },
+              }}
+            >
+              REMOVED EMPLOYEES ({historyData.length})
+            </Typography>
+          </Link>
         </Button>
 
         {/* Employees add dialog */}
@@ -437,7 +498,7 @@ export default function Main() {
         <Box
           sx={{
             paddingLeft: "1200px",
-            paddingTop: "94px",
+            paddingTop: "74px",
           }}
         >
           <FormControl
@@ -543,6 +604,9 @@ export default function Main() {
           }
           sx={{
             left: "204px",
+            border: "1px solid rgba(80, 212, 146, 0.5)",
+            boxSizing: "border-box",
+            borderRadius: "10px",
           }}
           onClick={handleADDOpen}
         >
