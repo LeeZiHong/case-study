@@ -5,7 +5,6 @@ import auth from "../authentication/firebase";
 import { Link } from "react-router-dom";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { Box, Button, Typography } from "@mui/material";
-import { useCHistory } from "../Reducer/ReducerContext";
 
 export default function NavBar() {
   const toggleTheme = useThemeUpdate();
@@ -16,8 +15,6 @@ export default function NavBar() {
     setChecked(event.target.checked);
   };
 
-  const items = useCHistory();
-
   return (
     <div>
       <Box
@@ -27,7 +24,7 @@ export default function NavBar() {
           alignItems: "center",
           padding: "8px 12px",
           position: "absolute",
-          width: "90%",
+          width: "1340px",
           height: "64px",
           left: "50px",
           top: "30px",
@@ -107,37 +104,6 @@ export default function NavBar() {
             onClick={toggleTheme}
           />
         </Box>
-        <Button>
-          <Link to="/history" style={{ textDecoration: "none" }}>
-            <Typography
-              sx={{
-                position: "static",
-                left: "11.11%",
-                right: "11.11%",
-                top: "16.67%",
-                bottom: "16.67%",
-                fontFamily: "Exo",
-                fontStyle: "normal",
-                fontWeight: "500",
-                fontSize: "14px",
-                lineHeight: "24px",
-                letterspacing: "0.15px",
-                texttransform: "uppercase",
-                color: "#FFFFFF",
-                flex: "none",
-                order: 0,
-                flexGrow: 0,
-                margin: "8px 0px",
-                paddingRight: "20px",
-                "&:hover": {
-                  color: "#E6E6E6",
-                },
-              }}
-            >
-              HISTORY ({items.length})
-            </Typography>
-          </Link>
-        </Button>
         <Button onClick={() => auth.signOut()}>
           <Typography
             sx={{

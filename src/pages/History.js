@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "../Theme/ThemeContext";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useHistory } from "react-router-dom";
-import { useCHistory } from "../Reducer/ReducerContext";
 
 export default function History() {
   // For dark theme
@@ -14,8 +13,6 @@ export default function History() {
   };
 
   const history = useHistory();
-
-  const items = useCHistory();
 
   const [historyData, setHistoryData] = useState([]);
   useEffect(() => {
@@ -164,7 +161,7 @@ export default function History() {
           />
         </Box>
 
-        {items.length === 0 ? (
+        {historyData.length === 0 ? (
           <Typography
             sx={{
               position: "absolute",

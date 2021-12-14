@@ -110,16 +110,10 @@
   ],
   "historyDel": [
     {
-      "hisName": "g",
+      "hisName": "Tester 1",
       "hisDate": "13/12/2021",
-      "hisID": "g",
+      "hisID": "#ID9999",
       "id": 1
-    },
-    {
-      "hisName": "t",
-      "hisDate": "13/12/2021",
-      "hisID": "t",
-      "id": 2
     }
   ]
 }
