@@ -105,7 +105,7 @@ export default function History() {
               fontSize: "14px",
               lineHeight: "24px",
               letterSpacing: "0.15px",
-              color: darkTheme ? "rgba(0, 0, 0, 0.38)" : "#FFFFFF",
+              color: darkTheme ? "rgba(0, 0, 0, 0.38)" : "#a5a397",
             }}
           >
             Employee ID
@@ -123,7 +123,7 @@ export default function History() {
               fontSize: "14px",
               lineHeight: "24px",
               letterSpacing: "0.15px",
-              color: darkTheme ? "rgba(0, 0, 0, 0.38)" : "#FFFFFF",
+              color: darkTheme ? "rgba(0, 0, 0, 0.38)" : "#a5a397",
             }}
           >
             Employee Name
@@ -141,7 +141,7 @@ export default function History() {
               fontSize: "14px",
               lineHeight: "24px",
               letterSpacing: "0.15px",
-              color: darkTheme ? "rgba(0, 0, 0, 0.38)" : "#FFFFFF",
+              color: darkTheme ? "rgba(0, 0, 0, 0.38)" : "#a5a397",
             }}
           >
             Removed Date
