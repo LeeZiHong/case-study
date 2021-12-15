@@ -5,6 +5,7 @@
       "empPos": " Chief Executive Officer (CEO)",
       "workAddress": "Condo A",
       "empID": "#ID1111",
+      "role": "User",
       "id": "e1"
     },
     {
@@ -12,6 +13,7 @@
       "empPos": "Chief Operating Officer (COO)",
       "workAddress": "Condo B",
       "empID": "#ID2222",
+      "role": "User",
       "id": "e2"
     },
     {
@@ -19,6 +21,7 @@
       "empPos": "Chief Financial Officer (CFO)",
       "workAddress": "Condo C",
       "empID": "#ID3333",
+      "role": "User",
       "id": "e3"
     },
     {
@@ -26,6 +29,7 @@
       "empPos": "Secretary",
       "workAddress": "Condo D",
       "empID": "#ID4444",
+      "role": "User",
       "id": "e4"
     },
     {
@@ -33,6 +37,7 @@
       "empPos": "IT Consultant",
       "workAddress": "Bikini Bottom",
       "empID": "testing",
+      "role": "User",
       "id": "wu3O9q-"
     },
     {
@@ -40,12 +45,14 @@
       "empPos": "Entertainer",
       "workAddress": "Condo A",
       "empID": "TESTING2",
+      "role": "User",
       "id": "YvDj_uk"
     },
     {
       "empName": "Suzy",
       "empPos": "Artist",
       "workAddress": "Bikini Bottom",
+      "role": "Admin",
       "empID": "TESTING3",
       "id": "fBCGSjc"
     }
