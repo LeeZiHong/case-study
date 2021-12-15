@@ -16,6 +16,8 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -49,6 +51,16 @@ export default function Login({ open, handleClose }) {
         });
     } else {
       alert("Please fill out all info stated");
+    }
+  };
+
+  // Show password
+  const [passwordShow, setPasswordShow] = useState(false);
+  const togglePasswordShow = () => {
+    if (passwordShow) {
+      setPasswordShow(false);
+    } else {
+      setPasswordShow(true);
     }
   };
 
@@ -157,6 +169,7 @@ export default function Login({ open, handleClose }) {
               />
               <TextField
                 label="Password"
+                type={passwordShow ? "text" : "password"}
                 fullWidth
                 required
                 onChange={(e) => {
@@ -174,6 +187,27 @@ export default function Login({ open, handleClose }) {
                   top: "206px",
                 }}
               />
+              {passwordShow ? (
+                <VisibilityIcon
+                  onClick={togglePasswordShow}
+                  sx={{
+                    padding: "0px",
+                    position: "absolute",
+                    left: "310px",
+                    top: "222px",
+                  }}
+                />
+              ) : (
+                <VisibilityOffIcon
+                  onClick={togglePasswordShow}
+                  sx={{
+                    padding: "0px",
+                    position: "absolute",
+                    left: "310px",
+                    top: "222px",
+                  }}
+                />
+              )}
               <Button
                 type="submit"
                 variant="contained"

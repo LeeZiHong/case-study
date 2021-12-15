@@ -12,6 +12,8 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { Link } from "react-router-dom";
 import auth from "../authentication/firebase";
 import { useHistory } from "react-router";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export default function Register({ setOpen }) {
   // History to navigate back previous
@@ -42,6 +44,24 @@ export default function Register({ setOpen }) {
       } else {
         alert("Please fill out all info stated");
       }
+    }
+  };
+
+  // Show password
+  const [passwordShow, setPasswordShow] = useState(false);
+  const togglePasswordShow = () => {
+    if (passwordShow) {
+      setPasswordShow(false);
+    } else {
+      setPasswordShow(true);
+    }
+  };
+  const [confirmPasswordShow, setconfirmpasswordShow] = useState(false);
+  const toggleConfirmPasswordShow = () => {
+    if (confirmPasswordShow) {
+      setconfirmpasswordShow(false);
+    } else {
+      setconfirmpasswordShow(true);
     }
   };
 
@@ -110,6 +130,7 @@ export default function Register({ setOpen }) {
               />
               <TextField
                 label="Password"
+                type={passwordShow ? "text" : "password"}
                 fullWidth
                 required
                 onChange={(e) => {
@@ -127,8 +148,30 @@ export default function Register({ setOpen }) {
                   top: "206px",
                 }}
               />
+              {passwordShow ? (
+                <VisibilityIcon
+                  onClick={togglePasswordShow}
+                  sx={{
+                    padding: "0px",
+                    position: "absolute",
+                    left: "310px",
+                    top: "222px",
+                  }}
+                />
+              ) : (
+                <VisibilityOffIcon
+                  onClick={togglePasswordShow}
+                  sx={{
+                    padding: "0px",
+                    position: "absolute",
+                    left: "310px",
+                    top: "222px",
+                  }}
+                />
+              )}
               <TextField
                 label="Confirm Password"
+                type={confirmPasswordShow ? "text" : "password"}
                 fullWidth
                 required
                 onChange={(e) => {
@@ -146,6 +189,27 @@ export default function Register({ setOpen }) {
                   top: "278px",
                 }}
               />
+              {confirmPasswordShow ? (
+                <VisibilityIcon
+                  onClick={toggleConfirmPasswordShow}
+                  sx={{
+                    padding: "0px",
+                    position: "absolute",
+                    left: "310px",
+                    top: "292px",
+                  }}
+                />
+              ) : (
+                <VisibilityOffIcon
+                  onClick={toggleConfirmPasswordShow}
+                  sx={{
+                    padding: "0px",
+                    position: "absolute",
+                    left: "310px",
+                    top: "292px",
+                  }}
+                />
+              )}
               <Button
                 type="submit"
                 variant="contained"
