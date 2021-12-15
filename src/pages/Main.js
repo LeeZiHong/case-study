@@ -7,32 +7,20 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
-import EmpCard from "../components/EMPCard";
-import ADDCard from "../components/ADDCard";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import { styled } from "@mui/material/styles";
+import EmployeeCard from "../components/EmployeeCard";
+import AddressCard from "../components/AddressCard";
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "../Theme/ThemeContext";
 import { Link } from "react-router-dom";
 import { useCHistory } from "../Reducer/ReducerContext";
-import MenuIcon from '@mui/icons-material/Menu';
-
-// For dialog
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+import MenuIcon from "@mui/icons-material/Menu";
+import EmployeeAddCard from "../components/EmployeeAddCard";
+import AddressAddCard from "../components/AddressAddCard";
 
 export default function Main() {
   // For handling dialogs
@@ -65,107 +53,11 @@ export default function Main() {
       .then((data) => setAddresses(data));
   }, [addresses]);
 
-  // For work address dropdown
-  const [workAddress, setWorkAddress] = React.useState("");
-  const handleChange = (event) => {
-    setWorkAddressErr(false);
-    setWorkAddress(event.target.value);
-  };
-
   // For filter dropdown
   const [filterChange, setFilterChange] = React.useState("");
   const handleFilterChange = (event) => {
-    setWorkAddressErr(false);
     setFilterChange(event.target.value);
   };
-
-  // Add employee & address
-  const [empName, setEmpName] = useState("");
-  const [empPos, setEmpPos] = useState("");
-  const [empID, setEmpID] = useState("");
-  const handleEMPSubmit = (e) => {
-    e.preventDefault();
-    setEmpNameErr(false);
-    setEmpPosErr(false);
-    setEmpIDErr(false);
-    setWorkAddressErr(false);
-
-    if (empName === "") {
-      setEmpNameErr(true);
-    }
-    if (empPos === "") {
-      setEmpPosErr(true);
-    }
-    if (empID === "") {
-      setEmpIDErr(true);
-    }
-    if (workAddress === "") {
-      setWorkAddressErr(true);
-    }
-    if (empName && empPos && empID && workAddress) {
-      setOpenEMP(false);
-      fetch("http://localhost:8000/employees", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ empName, empPos, workAddress, empID }),
-      });
-    }
-  };
-
-  const [addName, setAddName] = useState("");
-  const [addUnit, setAddUnit] = useState("");
-  const [addStreet, setAddStreet] = useState("");
-  const [addPostC, setAddPostC] = useState("");
-  const [addCountry, setAddCountry] = useState("");
-  const handleADDSubmit = (e) => {
-    e.preventDefault();
-    setAddNameErr(false);
-    setAddUnitErr(false);
-    setAddStreetErr(false);
-    setAddPostCErr(false);
-    setAddCountryErr(false);
-
-    if (addName === "") {
-      setAddNameErr(true);
-    }
-    if (addUnit === "") {
-      setAddUnitErr(true);
-    }
-    if (addStreet === "") {
-      setAddStreetErr(true);
-    }
-    if (addPostC === "") {
-      setAddPostCErr(true);
-    }
-    if (addCountry === "") {
-      setAddCountryErr(true);
-    }
-    if (addName && addUnit && addStreet && addPostC && addCountry) {
-      setOpenADD(false);
-      fetch("http://localhost:8000/addresses", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          addName,
-          addUnit,
-          addStreet,
-          addPostC,
-          addCountry,
-        }),
-      });
-    }
-  };
-
-  // Field blank reminder
-  const [empNameErr, setEmpNameErr] = useState(false);
-  const [empPosErr, setEmpPosErr] = useState(false);
-  const [empIDErr, setEmpIDErr] = useState(false);
-  const [workAddressErr, setWorkAddressErr] = useState(false);
-  const [addNameErr, setAddNameErr] = useState(false);
-  const [addUnitErr, setAddUnitErr] = useState(false);
-  const [addStreetErr, setAddStreetErr] = useState(false);
-  const [addPostCErr, setAddPostCErr] = useState(false);
-  const [addCountryErr, setAddCountryErr] = useState(false);
 
   // Try to remove the border of dropdown but fail...
   const useStyles = makeStyles(() => ({
@@ -257,13 +149,13 @@ export default function Main() {
           </Typography>
         </Button>
         <Button
-         startIcon={
-          <MenuIcon
-            sx={{
-              color: darkTheme ? "#757575" : "#a5a397",
-            }}
-          />
-        }
+          startIcon={
+            <MenuIcon
+              sx={{
+                color: darkTheme ? "#757575" : "#a5a397",
+              }}
+            />
+          }
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -305,194 +197,14 @@ export default function Main() {
         </Button>
 
         {/* Employees add dialog */}
-        <BootstrapDialog
-          onClose={handleEMPClose}
-          aria-labelledby="customized-dialog-title"
-          PaperProps={{
-            style: {
-              borderRadius: 20,
-              background: darkTheme ? "#FFFFFF" : "#242526",
-            },
-            sx: { width: "450px", height: "369px" },
-          }}
-          open={openEMP}
-        >
-          <DialogContent>
-            <Typography
-              sx={{
-                position: "absolute",
-                width: "182px",
-                height: "32px",
-                left: "25px",
-                top: "25px",
-                fontFamily: "Exo",
-                fontStyle: "normal",
-                fontWeight: "500",
-                fontSize: "20px",
-                lineHeight: "160%",
-                display: "flex",
-                alignItems: "center",
-                letterSpacing: "0.15px",
-                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
-              }}
-            >
-              Add New Employee
-            </Typography>
-            <form noValidate autoComplete="off" onSubmit={handleEMPSubmit}>
-              <TextField
-                onChange={(e) => setEmpName(e.target.value)}
-                label="Employee Name"
-                fullWidth
-                required
-                error={empNameErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "400px",
-                  height: "56px",
-                  left: "25px",
-                  top: "73px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <TextField
-                onChange={(e) => setEmpPos(e.target.value)}
-                label="Current Position"
-                required
-                error={empPosErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "220px",
-                  height: "56px",
-                  left: "25px",
-                  top: "145px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <TextField
-                onChange={(e) => setEmpID(e.target.value)}
-                label="Employee ID"
-                required
-                error={empIDErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "161px",
-                  height: "56px",
-                  left: "264px",
-                  top: "145px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "400px",
-                  height: "56px",
-                  left: "25px",
-                  top: "217px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              >
-                <FormControl fullWidth error={workAddressErr}>
-                  <InputLabel
-                    id="demo-simple-select-label"
-                    style={{ color: darkTheme ? "#707070" : "#a7ada8" }}
-                  >
-                    Work Address
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={workAddress}
-                    label="Work Address"
-                    onChange={handleChange}
-                  >
-                    {addresses.map((result) => (
-                      <MenuItem key={result.id} value={result.addName}>
-                        {result.addName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "180px",
-                  height: "36px",
-                  left: "235px",
-                  top: "303px",
-                  background: "#50D492",
-                  boxShadow:
-                    "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
-                  borderRadius: "10px",
-                  "&:hover": {
-                    background: "#37BB79",
-                  },
-                }}
-              >
-                SAVE
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleEMPClose}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "180px",
-                  height: "36px",
-                  left: "35px",
-                  top: "303px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                  color: darkTheme ? "#808080" : "#dcdee2",
-                  boxShadow:
-                    "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
-                  borderRadius: "10px",
-                  "&:hover": {
-                    background: darkTheme ? "#E6E6E6" : "#4e4f50",
-                  },
-                }}
-              >
-                CANCEL
-              </Button>
-            </form>
-          </DialogContent>
-        </BootstrapDialog>
+        <EmployeeAddCard
+          setOpenEMP={setOpenEMP}
+          handleEMPClose={handleEMPClose}
+          openEMP={openEMP}
+          darkTheme={darkTheme}
+          classes={classes}
+          addresses={addresses}
+        />
 
         {/* Filter address */}
         <Box
@@ -502,7 +214,6 @@ export default function Main() {
           }}
         >
           <FormControl
-            error={workAddressErr}
             sx={{
               width: "203px",
               background: darkTheme ? "#e5e5e5" : "#242526",
@@ -568,7 +279,7 @@ export default function Main() {
                   lg={4}
                   padding={1}
                 >
-                  <EmpCard employee={employee} />
+                  <EmployeeCard employee={employee} />
                 </Grid>
               ))}
           </Grid>
@@ -627,203 +338,12 @@ export default function Main() {
         </Button>
 
         {/* Address add dialog */}
-        <BootstrapDialog
-          onClose={handleADDClose}
-          aria-labelledby="customized-dialog-title"
-          PaperProps={{
-            style: {
-              borderRadius: 20,
-              background: darkTheme ? "#FFFFFF" : "#242526",
-            },
-            sx: { width: "450px", height: "441px" },
-          }}
-          open={openADD}
-        >
-          <DialogContent>
-            <Typography
-              sx={{
-                position: "absolute",
-                width: "182px",
-                height: "32px",
-                left: "25px",
-                top: "25px",
-                fontFamily: "Exo",
-                fontStyle: "normal",
-                fontWeight: "500",
-                fontSize: "20px",
-                lineHeight: "160%",
-                display: "flex",
-                alignItems: "center",
-                letterSpacing: "0.15px",
-                color: darkTheme ? "rgba(0, 0, 0, 0.87)" : "#FFFFFF",
-              }}
-            >
-              Add New Address
-            </Typography>
-            <form noValidate autoComplete="off" onSubmit={handleADDSubmit}>
-              <TextField
-                onChange={(e) => setAddName(e.target.value)}
-                label="Address Name"
-                fullWidth
-                required
-                error={addNameErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "400px",
-                  height: "56px",
-                  left: "25px",
-                  top: "73px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <TextField
-                onChange={(e) => setAddUnit(e.target.value)}
-                label="Unit/Block/Building"
-                fullWidth
-                required
-                error={addUnitErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "400px",
-                  height: "56px",
-                  left: "25px",
-                  top: "145px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <TextField
-                onChange={(e) => setAddStreet(e.target.value)}
-                label="Street"
-                fullWidth
-                required
-                error={addStreetErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "400px",
-                  height: "56px",
-                  left: "25px",
-                  top: "217px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <TextField
-                onChange={(e) => setAddPostC(e.target.value)}
-                label="Postcode"
-                required
-                error={addPostCErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "114px",
-                  height: "56px",
-                  left: "25px",
-                  top: "289px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <TextField
-                onChange={(e) => setAddCountry(e.target.value)}
-                label="Country"
-                fullWidth
-                required
-                error={addCountryErr}
-                InputLabelProps={{
-                  style: { color: darkTheme ? "#707070" : "#a7ada8" },
-                }}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "270px",
-                  height: "56px",
-                  left: "155px",
-                  top: "289px",
-                  background: darkTheme ? "#FFFFFF" : "#3a3b3c",
-                }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "180px",
-                  height: "36px",
-                  left: "235px",
-                  top: "375px",
-                  background: "#50D492",
-                  boxShadow:
-                    "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
-                  borderRadius: "10px",
-                  "&:hover": {
-                    background: "#37BB79",
-                  },
-                }}
-              >
-                SAVE
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleADDClose}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "0px",
-                  position: "absolute",
-                  width: "180px",
-                  height: "36px",
-                  left: "35px",
-                  top: "375px",
-                  background: "#FFFFFF",
-                  color: "#808080",
-                  boxShadow:
-                    "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)",
-                  borderRadius: "10px",
-                  "&:hover": {
-                    background: "#E6E6E6",
-                  },
-                }}
-              >
-                CANCEL
-              </Button>
-            </form>
-          </DialogContent>
-        </BootstrapDialog>
+        <AddressAddCard
+          handleADDClose={handleADDClose}
+          setOpenADD={setOpenADD}
+          darkTheme={darkTheme}
+          openADD={openADD}
+        />
       </Box>
 
       {/* Address info */}
@@ -847,7 +367,7 @@ export default function Main() {
                   lg={4}
                   padding={1}
                 >
-                  <ADDCard address={address} />
+                  <AddressCard address={address} />
                 </Grid>
               ))}
           </Grid>
